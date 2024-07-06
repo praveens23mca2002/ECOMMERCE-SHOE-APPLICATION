@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.SNEAKERS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: rgb(115, 74, 198);
+            margin: 0;
+            padding: 20px;
+            background-image: url('img/vecteezy_sport-shoes-background-illustration_23459254.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        nav {
+            background-color: rgb(115, 74, 198);
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .Nav-Top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .navItem {
+            margin: 0 10px;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+        }
+
+        .searchInput {
+            padding: 5px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .searchIcon {
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: rgba(209, 244, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid  rgba(209, 244, 255, 0.8);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: 700;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        button {
+            display: block;
+            width: 50%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: rgb(115, 74, 198);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+            margin: 0 auto 10px; 
+        }
+
+        button:hover {
+            background-color: #5c89b8;
+        }
+
+        .login-container {
+            max-width: 300px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .product-img {
+            width: 50px;
+            height: auto;
+        }
+
+        .product-list, .order-list, .customer-list, .feedback-list {
+            display: none;
+        }
+
+        .feedback {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .search-result {
+            text-align: center;
+            margin-top: 20px;
+            color: rgb(255, 255, 255);
+        }
+
+        .search-result img {
+            width: 150px;
+            height: auto;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button-container button {
+            width: 48%;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="Nav-Top">
+            <div class="navItem">
+                <img src="img/sneakers.png" alt="Shoe Shop Logo" width="120" height="40">
+            </div>
+            <div class="navItem">
+                <div class="search">
+                    <input type="text" placeholder="Search..." class="searchInput" id="searchInput">
+                    <img src="img/search.png" alt="Search Icon" width="20" height="20" class="searchIcon" id="searchIcon">
+                </div>
+            </div>
+            <div class="navItem">
+                <a href="#" id="loginLink">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="loginPage" class="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div class="error" id="error"></div>
+    </div>
+
+    <div id="mainPage" class="container" style="display:none;">
+        <h1>.SNEAKERS</h1>
+        
+        <button onclick="showProductList()">Product List</button>
+        <button onclick="showCustomerList()">Customer List</button>
+        <button onclick="showOrderList()">Order List</button>
+        <button onclick="showFeedback()">Feedback</button>
+
+        <!-- Product List Section -->
+        <div class="product-list" id="productList">
+            <h2>Product List</h2>
+            <table id="productTable">
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product Image</th>
+                        <th>Product Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Products will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Order List Section -->
+        <div class="order-list" id="orderList">
+            <h2>Order List</h2>
+            <table id="ordersTable">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Items Sold</th>
+                        <th>Product Image</th>
+                        <th>Product Price</th>
+                        <th>Total Product Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Orders will be inserted here -->
+                </tbody>
+            </table>
+            <div class="button-container">
+                <button onclick="calculateTotalItems()">Calculate Total Items Sold</button>
+                <button onclick="calculateTotalAmount()">Calculate Total Amount</button>
+            </div>
+            <div class="result" id="result"></div>
+            <div class="result" id="amountResult"></div>
+        </div>
+
+        <!-- Customer List Section -->
+        <div class="customer-list" id="customerList">
+            <h2>Customer List</h2>
+            <table id="customerTable">
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Customer Name</th>
+                        <th>Product Image</th>
+                        <th>Product Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Customers will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Feedback Section -->
+        <div class="feedback-list" id="feedbackList">
+            <h2>Customer Feedback</h2>
+            <table id="feedbackTable">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Feedback</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Feedback will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="search-result" id="searchResult"></div>
+
+    <script>
+        const products = [
+            { id: 1, image: "download (2).jpeg", price: "$100" },
+            { id: 2, image: "download (3).jpeg", price: "$110" },
+            { id: 3, image: "download.jpeg", price: "$160" },
+            { id: 4, image: "images.jpeg", price: "$200" },
+            { id: 5, image: "img/pexels-webdonut-19090.jpg", price: "$160" },
+            { id: 6, image: "img/pexels-mnzoutfits-1598505.jpg", price: "$180" },
+            { id: 7, image: "img/pexels-goumbik-292998.jpg", price: "$105" },
+            { id: 8, image: "img/pexels-pluyar-786003.jpg", price: "$170" },
+            { id: 9, image: "img/pexels-styves-exantus-7162424-6412694.jpg", price: "$100" }
+        ];
+
+        const orders = [
+            { id: 1, itemsSold: 3, image: "download (2).jpeg", price: "$100", totalProductAmount: "$300" },
+            { id: 2, itemsSold: 5, image: "download (3).jpeg", price: "$110", totalProductAmount: "$550" },
+            { id: 3, itemsSold: 2, image: "download.jpeg", price: "$160", totalProductAmount: "$320" },
+            { id: 4, itemsSold: 3, image: "images.jpeg", price: "$200", totalProductAmount: "$600" }
+        ];
+
+        const customers = [
+            { id: 1, name: "Raghul", image: "download (2).jpeg", price: "$100" },
+            { id: 2, name: "Prasanth", image: "download (3).jpeg", price: "$110" },
+            { id: 3, name: "Ajay", image: "download.jpeg", price: "$160" },
+            { id: 4, name: "Guru", image: "images.jpeg", price: "$200" }
+        ];
+
+        const feedbacks = [
+            { name: "Raghul", feedback: "Love the product..." },
+            { name: "Guru", feedback: "Worth for it..." }
+        ];
+
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'admin' && password === '12345') {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('mainPage').style.display = 'block';
+                document.getElementById('error').textContent = '';
+            } else {
+                document.getElementById('error').textContent = 'Invalid username or password';
+            }
+        });
+
+        function showProductList() {
+            document.getElementById('productList').style.display = 'block';
+            document.getElementById('orderList').style.display = 'none';
+            document.getElementById('customerList').style.display = 'none';
+            document.getElementById('feedbackList').style.display = 'none';
+            renderTable('productTable', products, 'id', 'image', 'price');
+        }
+
+        function showOrderList() {
+            document.getElementById('productList').style.display = 'none';
+            document.getElementById('orderList').style.display = 'block';
+            document.getElementById('customerList').style.display = 'none';
+            document.getElementById('feedbackList').style.display = 'none';
+            renderTable('ordersTable', orders, 'id', 'itemsSold', 'image', 'price', 'totalProductAmount');
+        }
+
+        function showCustomerList() {
+            document.getElementById('productList').style.display = 'none';
+            document.getElementById('orderList').style.display = 'none';
+            document.getElementById('customerList').style.display = 'block';
+            document.getElementById('feedbackList').style.display = 'none';
+            renderTable('customerTable', customers, 'id', 'name', 'image', 'price');
+        }
+
+        function showFeedback() {
+            document.getElementById('productList').style.display = 'none';
+            document.getElementById('orderList').style.display = 'none';
+            document.getElementById('customerList').style.display = 'none';
+            document.getElementById('feedbackList').style.display = 'block';
+            renderTable('feedbackTable', feedbacks, 'name', 'feedback');
+        }
+
+        function renderTable(tableId, data, ...keys) {
+            const tableBody = document.querySelector(`#${tableId} tbody`);
+            tableBody.innerHTML = '';
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+
+                keys.forEach(key => {
+                    const cell = document.createElement('td');
+                    if (key === 'image') {
+                        const img = document.createElement('img');
+                        img.src = item[key];
+                        img.classList.add('product-img');
+                        cell.appendChild(img);
+                    } else {
+                        cell.textContent = item[key];
+                    }
+                    row.appendChild(cell);
+                });
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        function calculateTotalItems() {
+            const totalItems = orders.reduce((total, order) => total + order.itemsSold, 0);
+            document.getElementById('result').textContent = `Total Items Sold: ${totalItems}`;
+        }
+
+        function calculateTotalAmount() {
+            const totalAmount = orders.reduce((total, order) => {
+                const price = parseFloat(order.price.replace('$', ''));
+                return total + (price * order.itemsSold);
+            }, 0);
+            document.getElementById('amountResult').textContent = `Total Amount: $${totalAmount.toFixed(2)}`;
+        }
+
+        document.getElementById('searchIcon').addEventListener('click', function () {
+            const searchInput = document.getElementById('searchInput').value;
+            const searchResult = document.getElementById('searchResult');
+            const product = products.find(p => p.id == searchInput);
+
+            if (product) {
+                searchResult.innerHTML = `<img src="${product.image}" alt="Product Image"><br>Price: ${product.price}`;
+            } /*else {
+                searchResult.textContent = 'Product not found';
+            }*/
+        });
+    </script>
+</body>
+</html>
